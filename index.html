@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Discover our premium selection of high-quality products"
+    />
+    <title>Premium Products Store</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #e74c3c;
+        --accent-color: #3498db;
+        --light-bg: #ecf0f1;
+        --dark-text: #2c3e50;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+        line-height: 1.6;
+        color: var(--dark-text);
+        background-color: var(--light-bg);
+      }
+
+      .navbar {
+        background-color: var(--primary-color);
+        padding: 1rem;
+        color: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-decoration: none;
+        color: white;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+        padding: 1rem;
+      }
+
+      .product-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+      }
+
+      .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .product-image {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-bottom: 3px solid var(--light-bg);
+      }
+
+      .product-content {
+        padding: 1.5rem;
+      }
+
+      .product-title {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        color: var(--primary-color);
+      }
+
+      .product-description {
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        min-height: 60px;
+      }
+
+      .product-price {
+        font-size: 1.25rem;
+        color: var(--secondary-color);
+        font-weight: bold;
+        margin-bottom: 1rem;
+      }
+
+      .btn {
+        display: inline-block;
+        width: 100%;
+        padding: 0.8rem;
+        background-color: var(--accent-color);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .btn:hover {
+        background-color: #2980b9;
+      }
+
+      .cart-count {
+        background-color: var(--secondary-color);
+        padding: 2px 8px;
+        border-radius: 50%;
+        font-size: 0.8rem;
+        margin-left: 5px;
+      }
+
+      .cart-link {
+        position: relative;
+        color: white;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container">
+        <a href="#" class="brand">PremiumStores</a>
+        <div class="nav-links">
+          <a href="cart.html" class="cart-link">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count" id="cartCount">0</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <h1 class="page-title">Featured Products</h1>
+      <div class="product-grid">
+        <!-- Product 1 -->
+        <div class="product-card">
+          <img src="TomBrowb.png" alt="Tom Brown" class="product-image" />
+          <div class="product-content">
+            <h3 class="product-title">Tom Brown</h3>
+            <p class="product-description">
+              Premium quality fabric with enhanced durability and comfort.
+            </p>
+            <div class="product-price">$89.99</div>
+            <button
+              class="btn"
+              onclick="addToCart('Tom Brown', 89.99, 'TomBrowb.png')"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card">
+          <img src="tiedie2.jpg" alt="Bed Sheet" class="product-image" />
+          <div class="product-content">
+            <h3 class="product-title">Luxury Bed Sheet</h3>
+            <p class="product-description">
+              300 thread count Egyptian cotton bed sheet set.
+            </p>
+            <div class="product-price">$129.99</div>
+            <button
+              class="btn"
+              onclick="addToCart('Luxury Bed Sheet', 129.99, 'tiedie2.jpg')"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card">
+          <img src="tiedie.jpg" alt="Designer Top" class="product-image" />
+          <div class="product-content">
+            <h3 class="product-title">Designer Top</h3>
+            <p class="product-description">
+              Trendy and comfortable casual wear for everyday use.
+            </p>
+            <div class="product-price">$49.99</div>
+            <button
+              class="btn"
+              onclick="addToCart('Designer Top', 49.99, 'tiedie.jpg')"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card">
+          <img src="gari.jpg" alt="Premium Gari" class="product-image" />
+          <div class="product-content">
+            <h3 class="product-title">Premium Gari</h3>
+            <p class="product-description">
+              Organic, gluten-free cassava product with natural ingredients.
+            </p>
+            <div class="product-price">$14.99</div>
+            <button
+              class="btn"
+              onclick="addToCart('Premium Gari', 14.99, 'gari.jpg')"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2023 PremiumStore. All rights reserved.</p>
+    </footer>
+
+    <script>
+      // Cart functionality
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      function updateCartCount() {
+        const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+        document.getElementById("cartCount").textContent = count;
+      }
+
+      function addToCart(name, price, image) {
+        const existingItem = cart.find((item) => item.name === name);
+
+        if (existingItem) {
+          existingItem.quantity++;
+        } else {
+          cart.push({
+            id: Date.now(),
+            name,
+            price,
+            image,
+            quantity: 1,
+          });
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartCount();
+        alert(`${name} added to cart!`);
+      }
+
+      // Initialize cart count
+      updateCartCount();
+    </script>
+  </body>
+</html>

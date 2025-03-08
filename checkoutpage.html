@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout - PremiumStore</title>
+    <style>
+      :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #e74c3c;
+        --accent-color: #3498db;
+        --light-bg: #ecf0f1;
+        --dark-text: #2c3e50;
+      }
+
+      .checkout-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 1rem;
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: 2fr 1fr;
+      }
+
+      .checkout-form {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 1rem;
+      }
+
+      .order-summary {
+        background: var(--light-bg);
+        padding: 2rem;
+        border-radius: 8px;
+        height: fit-content;
+      }
+
+      .success-message {
+        display: none;
+        background: #2ecc71;
+        color: white;
+        padding: 1rem;
+        border-radius: 6px;
+        margin-top: 1rem;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container">
+        <a href="index.html" class="brand">PremiumStore</a>
+        <div class="nav-links">
+          <a href="cart.html" class="cart-link">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count" id="cartCount">0</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="checkout-container">
+      <div class="checkout-form">
+        <h2>Checkout Details</h2>
+        <form id="checkoutForm" onsubmit="handleSubmit(event)">
+          <div
+            class="form-group"
+            action="https://formspree.io/f/xnnjekly"
+            method="POST"
+          >
+            <label for="name">Full Name</label>
+            <input type="text" id="name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" required />
+          </div>
+
+          <div class="form-group">
+            <label for="mobile-provider">Mobile Money Provider</label>
+            <select id="mobile-provider" required>
+              <option value="">Select Provider</option>
+              <option value="mtn">MTN</option>
+              <option value="airtel">AirtelTigo</option>
+              <option value="vodafone">Telecel</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Mobile Number</label>
+            <input
+              type="tel"
+              id="phone"
+              pattern="[0-9]{10}"
+              required
+              placeholder="05X XXX XXXX"
+            />
+          </div>
+
+          <button type="submit" class="btn">Complete Payment</button>
+          <div class="success-message" id="successMessage">
+            Payment Successful! Redirecting...
+          </div>
+        </form>
+      </div>
+
+      <div class="order-summary">
+        <h2>Order Summary</h2>
+        <div id="orderDetails"></div>
+        <hr />
+        <h3>Total: $<span id="checkoutTotal">0.00</span></h3>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const orderDetails = document.getElementById("orderDetails");
+        const checkoutTotal = document.getElementById("checkoutTotal");
+
+        if (cart.length === 0) {
+          orderDetails.innerHTML = "<p>No items in cart</p>";
+          return;
+        }
+
+        let total = 0;
+        cart.forEach((item) => {
+          const itemTotal = item.price * item.quantity;
+          total += itemTotal;
+          orderDetails.innerHTML += `
+                    <p>${item.name} x${item.quantity}: $${itemTotal.toFixed(
+            2
+          )}</p>
+                `;
+        });
+
+        // Add tax calculation (10%)
+        const tax = total * 0.1;
+        total += tax;
+
+        orderDetails.innerHTML += `
+                <hr>
+                <p>Subtotal: $${(total - tax).toFixed(2)}</p>
+                <p>Tax (10%): $${tax.toFixed(2)}</p>
+            `;
+
+        checkoutTotal.textContent = total.toFixed(2);
+      });
+
+      function handleSubmit(event) {
+        event.preventDefault();
+        const successMessage = document.getElementById("successMessage");
+
+        successMessage.style.display = "block";
+        localStorage.removeItem("cart");
+
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 2000);
+      }
+    </script>
+  </body>
+</html>
